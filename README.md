@@ -2,15 +2,7 @@
 
 A modern, full-stack, AI-powered Resume Builder that dynamically matches your profile against Applicant Tracking Systems (ATS) and specific job descriptions using the **Google Gemini** language model.
 
-## Screenshots
 
-<p align="center">
-  <img src="./screenshots/Hero.webp" alt="Hero Screen" width="800"/>
-</p>
-<p align="center">
-  <img src="./screenshots/Resume Preview.webp" alt="Resume Preview" width="400"/>
-  <img src="./screenshots/AI Enhance.webp" alt="AI Features" width="400"/>
-</p>
 
 ## Features
 
