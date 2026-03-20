@@ -5,11 +5,11 @@ A modern, full-stack, AI-powered Resume Builder that dynamically matches your pr
 ## Screenshots
 
 <p align="center">
-  <img src="./screenshots/Hero.png" alt="Hero Screen" width="800"/>
+  <img src="./screenshots/Hero.webp" alt="Hero Screen" width="800"/>
 </p>
 <p align="center">
-  <img src="./screenshots/Resume Preview.png" alt="Resume Preview" width="400"/>
-  <img src="./screenshots/AI Enhance.png" alt="AI Features" width="400"/>
+  <img src="./screenshots/Resume Preview.webp" alt="Resume Preview" width="400"/>
+  <img src="./screenshots/AI Enhance.webp" alt="AI Features" width="400"/>
 </p>
 
 ## Features
