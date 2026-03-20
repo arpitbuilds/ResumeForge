@@ -366,10 +366,9 @@ const ResumeBuilder = () => {
           </div>
 
           {/* Right Panel - Live Resume Preview */}
-          <div className="lg:col-span-7 max-lg:mt-6">
-            <div className="relative w-fill">
-              {/* Action Buttons (Share, Visibility, Download) - positioned absolutely over the preview */}
-              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2 pr-4 pl-4">
+          <div className="lg:col-span-7 max-lg:mt-6 flex flex-col gap-4">
+            {/* Action Buttons (Share, Visibility, Download) */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2 w-full">
                 {/* Job Matcher Button */}
                 <button
                   onClick={() => setIsJobMatcherOpen(true)}
@@ -418,7 +417,6 @@ const ResumeBuilder = () => {
                 >
                   <DownloadIcon className="size-4" /> Download
                 </button>
-              </div>
             </div>
 
             {/* Resume Preview Component: Renders the document based on current state */}
