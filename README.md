@@ -2,6 +2,16 @@
 
 A modern, full-stack, AI-powered Resume Builder that dynamically matches your profile against Applicant Tracking Systems (ATS) and specific job descriptions using the **Google Gemini** language model.
 
+## Screenshots
+
+<p align="center">
+  <img src="./screenshots/Hero.png" alt="Hero Screen" width="800"/>
+</p>
+<p align="center">
+  <img src="./screenshots/Resume Preview.png" alt="Resume Preview" width="400"/>
+  <img src="./screenshots/AI Enhance.png" alt="AI Features" width="400"/>
+</p>
+
 ## Features
 
 - **Smart ATS Analyzer**: Evaluates resumes in real-time, providing a 0-100 match score with tailored strengths and missing keyword suggestions.
@@ -38,5 +48,4 @@ A modern, full-stack, AI-powered Resume Builder that dynamically matches your pr
 3. Install dependencies: `npm install`
 4. Start the frontend server: `npm run dev`
 
----
-*Forging perfectly tailored careers.*
+
