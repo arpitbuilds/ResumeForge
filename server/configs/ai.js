@@ -23,15 +23,15 @@ const ai = {
         }
         const promptText = promptLines.join("\n\n====================\n\n");
 
-        let generationConfig = {};
+        let reqOptions = {
+          contents: [{ role: "user", parts: [{ text: promptText }] }]
+        };
+        
         if (params.response_format && params.response_format.type === "json_object") {
-          generationConfig.responseMimeType = "application/json";
+          reqOptions.generationConfig = { responseMimeType: "application/json" };
         }
 
-        const result = await model.generateContent({
-          contents: [{ role: "user", parts: [{ text: promptText }] }],
-          generationConfig
-        });
+        const result = await model.generateContent(reqOptions);
         
         return {
           choices: [
