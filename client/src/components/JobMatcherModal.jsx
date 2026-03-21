@@ -47,7 +47,7 @@ const JobMatcherModal = ({ isOpen, onClose, resumeData }) => {
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-slate-900 text-slate-100 border-slate-700 rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
         <div className="px-6 py-4 flex justify-between items-center border-b border-gray-100 bg-slate-50 shrink-0">
           <h2 className="text-xl font-semibold text-slate-800">Job Description Matcher</h2>
@@ -69,9 +69,9 @@ const JobMatcherModal = ({ isOpen, onClose, resumeData }) => {
             </div>
           ) : error && !result ? (
             <div className="flex flex-col h-full">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Paste Job Description Here:</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Paste Job Description Here:</label>
               <textarea 
-                className="w-full h-48 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none mb-4"
+                className="w-full h-48 p-3 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none mb-4"
                 placeholder="Paste the full job description from LinkedIn, Indeed, etc..."
                 value={jobDescription}
                 onChange={(e) => {
@@ -156,9 +156,9 @@ const JobMatcherModal = ({ isOpen, onClose, resumeData }) => {
             </div>
           ) : (
             <div className="flex flex-col h-full">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Paste Job Description Here:</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Paste Job Description Here:</label>
               <textarea 
-                className="w-full h-48 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none mb-4"
+                className="w-full h-48 p-3 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none mb-4"
                 placeholder="Paste the full job description from LinkedIn, Indeed, etc..."
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}

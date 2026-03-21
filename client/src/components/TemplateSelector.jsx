@@ -43,7 +43,7 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
 
       {/* Dropdown Panel: Renders conditionally when isOpen is true */}
       {isOpen && (
-        <div className="absolute top-full w-xs p-3 mt-2 space-y-3 z-10 bg-white rounded-md border border-gray-200 shadow-sm">
+        <div className="absolute top-full w-xs p-3 mt-2 space-y-3 z-10 bg-transparent text-white border-slate-700 rounded-md border border-slate-700 shadow-sm">
           {/* Map over the templates array to render each selection card */}
           {templates.map((template) => (
             <div
@@ -58,7 +58,7 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
                 // Conditional styling based on whether this template is currently selected
                 selectedTemplate === template.id
                   ? "border-blue-400 bg-blue-100"
-                  : "border-gray-300 hover:border-gray-400 hover:bg-gray-100"
+                  : "border-slate-700 hover:border-gray-400 hover:bg-slate-800"
               }`}
             >
               {/* Selected Indicator (Checkmark) */}
@@ -73,7 +73,7 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
               {/* Template Name and Preview Description */}
               <div className="space-y-1">
                 <h4 className="font-medium text-gray-800">{template.name}</h4>
-                <p className="mt-2 p-2 bg-blue-50 rounded text-xs text-gray-500 italic">
+                <p className="mt-2 p-2 bg-blue-50 rounded text-xs text-slate-400 italic">
                   {template.preview}
                 </p>
               </div>

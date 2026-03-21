@@ -7,16 +7,22 @@
 }
 
 @layer base {
-  button {
-    @apply cursor-pointer;
+  body {
+    @apply bg-[#0B0F19] text-slate-200 antialiased selection:bg-blue-500/30;
   }
 
-  input:not([type="checkbox"]) {
-    @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+  button {
+    @apply cursor-pointer transition-all duration-300;
+  }
+
+  input:not([type="checkbox"]),
+  select,
+  textarea {
+    @apply outline-none focus:ring-2 border border-slate-700 bg-slate-900/50 text-slate-200 focus:ring-blue-500/50 focus:border-blue-500 rounded-lg transition-all duration-300;
   }
 
   textarea {
-    @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
+    @apply resize-none;
   }
 }
 
@@ -25,4 +31,22 @@
     color-adjust: exact !important;
     -webkit-print-color-adjust: exact !important;
   }
+  body, html {
+    @apply bg-white text-black;
+  }
+}
+
+/* Custom scrollbar for a premium dark feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-[#0B0F19];
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-600;
 }

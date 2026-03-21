@@ -25,6 +25,7 @@ import PersonalInfoForm from "../components/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview";
 import ATSAnalyzerModal from "../components/ATSAnalyzerModal";
 import JobMatcherModal from "../components/JobMatcherModal";
+import ShareModal from "../components/ShareModal";
 import TemplateSelector from "../components/TemplateSelector";
 import ColorPicker from "../components/ColorPicker";
 import ProfessionalSummaryForm from "../components/ProfessionalSummaryForm";
@@ -75,6 +76,7 @@ const ResumeBuilder = () => {
   const [removeBackground, setRemoveBackground] = useState(false);
   const [isAtsModalOpen, setIsAtsModalOpen] = useState(false);
   const [isJobMatcherOpen, setIsJobMatcherOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const sections = [
     { id: "personal", name: "Personal Info", icon: User },
@@ -112,36 +114,8 @@ const ResumeBuilder = () => {
     }
   };
 
-  // const handleShare = () => {
-  //   const frontendUrl = window.location.href.split("/app/")[0];
-  //   const resumeUrl = frontendUrl + "/view/" + resumeId;
-
-  //   if (navigator.share) {
-  //     navigator.share({ url: resumeUrl, text: "My Resume" });
-  //   } else {
-  //     alert("Share not supported on this browser.");
-  //   }
-  // };
-
   const handleShare = () => {
-    const frontendUrl = window.location.href.split("/app/")[0];
-    const resumeUrl = frontendUrl + "/view/" + resumeId;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          url: resumeUrl,
-        })
-        .then(() => console.log("Successful share"))
-        .catch((error) => {
-          console.error("Error sharing:", error);
-          toast.error(
-            "Share failed. Check console for details or ensure you are on HTTPS.",
-          );
-        });
-    } else {
-      alert("Share not supported on this browser.");
-    }
+    setIsShareModalOpen(true);
   };
 
   const downloadResume = () => {
@@ -180,7 +154,7 @@ const ResumeBuilder = () => {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <Link
           to={"/app"}
-          className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all"
+          className="inline-flex gap-2 items-center text-slate-400 hover:text-white transition-all font-medium bg-slate-800/50 hover:bg-slate-800 px-4 py-2 rounded-full border border-slate-700"
         >
           <ArrowLeftIcon className="size-4" /> Back to Dashboard
         </Link>
@@ -189,23 +163,22 @@ const ResumeBuilder = () => {
       <div className="max-w-7xl mx-auto px-4 pb-8">
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Left Panel - Form Editor */}
-          <div className="relative lg:col-span-5 rounded-lg overflow-hidden">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 pt-1">
+          <div className="relative lg:col-span-5 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 pt-1">
               {/* Progress Bar (Visual indicator of current section progress) */}
-              <hr className="absolute top-0 left-0 right-0 border-2 border-gray-200" />
+              <hr className="absolute top-0 left-0 right-0 border-2 border-slate-800" />
               <hr
-                className="absolute top-0 left-0 h-1 bg-linear-to-br from-green-500 to-green-600 border-none transition-all duration-200"
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 border-none transition-all duration-300"
                 style={{
-                  // Calculate width based on current index vs total sections
                   width: `${
                     (activeSectionIndex * 100) / (sections.length - 1)
-                  }%`,
+                  }%`
                 }}
               />
 
               {/* Section Configuration and Navigation Controls */}
-              <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
-                <div className="flex items-center gap-2">
+              <div className="flex justify-between items-center mb-6 border-b border-slate-800 py-4 mt-2">
+                <div className="flex items-center gap-3">
                   {/* Template Selector Component */}
                   <TemplateSelector
                     selectedTemplate={resumeData.template}
@@ -218,7 +191,6 @@ const ResumeBuilder = () => {
                   <ColorPicker
                     selectedColor={resumeData.accent_color}
                     onChange={(color) => {
-                      // Callback updates the accent_color in the main state
                       setResumeData((prev) => ({
                         ...prev,
                         accent_color: color,
@@ -228,20 +200,19 @@ const ResumeBuilder = () => {
                 </div>
 
                 {/* Previous/Next Step Buttons */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   {/* Previous Button (Hidden on first step) */}
                   {activeSectionIndex !== 0 && (
                     <button
                       onClick={() =>
                         setActiveSectionIndex((prevIndex) =>
-                          // Decrement index, ensuring it doesn't go below 0
                           Math.max(prevIndex - 1, 0),
                         )
                       }
-                      className="flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all"
+                      className="flex items-center justify-center p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700"
                       disabled={activeSectionIndex === 0}
                     >
-                      <ChevronLeft className="size-4" /> Previous
+                      <ChevronLeft className="size-5" />
                     </button>
                   )}
 
@@ -249,12 +220,11 @@ const ResumeBuilder = () => {
                   <button
                     onClick={() =>
                       setActiveSectionIndex((prevIndex) =>
-                        // Increment index, ensuring it doesn't exceed the last section
                         Math.min(prevIndex + 1, sections.length - 1),
                       )
                     }
-                    className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${
-                      activeSectionIndex === sections.length - 1 && "opacity-50" // Dim the button on the last step
+                    className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-500 text-white transition-all active:scale-95 ${
+                      activeSectionIndex === sections.length - 1 && "opacity-50 pointer-events-none"
                     }`}
                     disabled={activeSectionIndex === sections.length - 1}
                   >
@@ -270,7 +240,6 @@ const ResumeBuilder = () => {
                   <PersonalInfoForm
                     data={resumeData.personal_info}
                     onChange={(data) =>
-                      // Updater function to merge changes into the specific sub-object
                       setResumeData((prev) => ({
                         ...prev,
                         personal_info: data,
@@ -286,7 +255,6 @@ const ResumeBuilder = () => {
                   <ProfessionalSummaryForm
                     data={resumeData.professional_summary}
                     onChange={(data) =>
-                      // Updater function for the summary string
                       setResumeData((prev) => ({
                         ...prev,
                         professional_summary: data,
@@ -301,7 +269,6 @@ const ResumeBuilder = () => {
                   <ExperienceForm
                     data={resumeData.experience}
                     onChange={(data) =>
-                      // Updater function for the experience array
                       setResumeData((prev) => ({
                         ...prev,
                         experience: data,
@@ -315,7 +282,6 @@ const ResumeBuilder = () => {
                   <EducationForm
                     data={resumeData.education}
                     onChange={(data) =>
-                      // Updater function for the education array
                       setResumeData((prev) => ({
                         ...prev,
                         education: data,
@@ -329,7 +295,6 @@ const ResumeBuilder = () => {
                   <ProjectForm
                     data={resumeData.projects}
                     onChange={(data) =>
-                      // Updater function for the project array
                       setResumeData((prev) => ({
                         ...prev,
                         projects: data,
@@ -343,7 +308,6 @@ const ResumeBuilder = () => {
                   <SkillsForm
                     data={resumeData.skills}
                     onChange={(data) =>
-                      // Updater function for the skills array
                       setResumeData((prev) => ({
                         ...prev,
                         skills: data,
@@ -358,7 +322,7 @@ const ResumeBuilder = () => {
                 onClick={() => {
                   toast.promise(saveResume, { loading: "Saving..." });
                 }}
-                className="bg-linear-to-br from-green-100 to-green-200 ring-green-300 text-gray-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-6 text-sm"
+                className="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.98] transition-all text-white font-medium rounded-lg px-6 py-3 mt-8 shadow-[0_0_15px_rgba(37,99,235,0.4)]"
               >
                 Save Changes
               </button>
@@ -366,13 +330,13 @@ const ResumeBuilder = () => {
           </div>
 
           {/* Right Panel - Live Resume Preview */}
-          <div className="lg:col-span-7 max-lg:mt-6 flex flex-col gap-4">
+          <div className="lg:col-span-7 max-lg:mt-6 flex flex-col gap-5">
             {/* Action Buttons (Share, Visibility, Download) */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2 w-full">
+            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 w-full">
                 {/* Job Matcher Button */}
                 <button
                   onClick={() => setIsJobMatcherOpen(true)}
-                  className="flex items-center p-2 px-4 gap-2 text-xs bg-linear-to-br from-teal-100 to-teal-200 text-teal-700 rounded-lg ring-teal-300 hover:ring transition-colors font-medium border border-teal-200 shadow-sm"
+                  className="flex items-center p-2.5 px-4 gap-2 text-sm bg-indigo-500/10 text-indigo-400 rounded-lg hover:bg-indigo-500/20 border border-indigo-500/20 transition-colors font-medium backdrop-blur-sm"
                 >
                   <Target className="size-4" /> Target Job
                 </button>
@@ -380,7 +344,7 @@ const ResumeBuilder = () => {
                 {/* Analyze ATS Button */}
                 <button
                   onClick={() => setIsAtsModalOpen(true)}
-                  className="flex items-center p-2 px-4 gap-2 text-xs bg-linear-to-br from-indigo-100 to-indigo-200 text-indigo-700 rounded-lg ring-indigo-300 hover:ring transition-colors font-medium border border-indigo-200 shadow-sm"
+                  className="flex items-center p-2.5 px-4 gap-2 text-sm bg-emerald-500/10 text-emerald-400 rounded-lg hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors font-medium backdrop-blur-sm"
                 >
                   <Activity className="size-4" /> Analyze ATS
                 </button>
@@ -389,7 +353,7 @@ const ResumeBuilder = () => {
                 {resumeData.public && (
                   <button
                     onClick={handleShare}
-                    className="flex items-center p-2 px-4 gap-2 text-xs bg-linear-to-br from-blue-100 to-blue-200 text-blue-600 rounded-lg ring-blue-300 hover:ring transition-colors"
+                    className="flex items-center p-2.5 px-4 gap-2 text-sm bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-500/20 border border-blue-500/20 transition-colors font-medium backdrop-blur-sm"
                   >
                     <Share2Icon className="size-4" /> Share
                   </button>
@@ -398,33 +362,34 @@ const ResumeBuilder = () => {
                 {/* Visibility Toggle Button (Public/Private) */}
                 <button
                   onClick={changeResumeVisibility}
-                  className="flex items-center p-2 px-4 gap-2 text-xs bg-linear-to-br from-purple-100 to-purple-200 text-purple-600 ring-purple-300 rounded-l-2xl hover:ring transition-colors"
+                  className="flex items-center p-2.5 px-4 gap-2 text-sm bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 rounded-lg border border-purple-500/20 transition-colors font-medium backdrop-blur-sm"
                 >
                   {resumeData.public ? (
                     <EyeIcon className="size-4" />
                   ) : (
                     <EyeOffIcon className="size-4" />
                   )}
-
                   {resumeData.public ? "Public" : "Private"}
                 </button>
 
                 {/* Download/Print Button */}
                 <button
                   onClick={downloadResume}
-                  className="flex items-center gap-2 px-6 py-2 text-xs
-                  bg-linear-to-br from-green-100 to-green-200 text-green-600 rounded-lg ring-green-300 hover:ring transition-colors"
+                  className="flex items-center p-2.5 px-5 gap-2 text-sm bg-white text-slate-900 rounded-lg hover:bg-slate-100 transition-colors font-semibold shadow-md active:scale-95"
                 >
-                  <DownloadIcon className="size-4" /> Download
+                  <DownloadIcon className="size-4" /> Download PDF
                 </button>
             </div>
 
             {/* Resume Preview Component: Renders the document based on current state */}
-            <ResumePreview
-              data={resumeData}
-              template={resumeData.template}
-              accentColor={resumeData.accent_color}
-            />
+            {/* The wrapper bg-white text-black is necessary to reset dark mode styles for preview! */}
+            <div className="bg-white text-black rounded-lg shadow-2xl overflow-hidden print:shadow-none print:rounded-none">
+              <ResumePreview
+                data={resumeData}
+                template={resumeData.template}
+                accentColor={resumeData.accent_color}
+              />
+            </div>
 
             {/* ATS Analyzer Modal */}
             <ATSAnalyzerModal 
@@ -438,6 +403,13 @@ const ResumeBuilder = () => {
               isOpen={isJobMatcherOpen}
               onClose={() => setIsJobMatcherOpen(false)}
               resumeData={resumeData}
+            />
+
+            {/* Share Modal */}
+            <ShareModal
+              isOpen={isShareModalOpen}
+              onClose={() => setIsShareModalOpen(false)}
+              resumeId={resumeId}
             />
           </div>
         </div>

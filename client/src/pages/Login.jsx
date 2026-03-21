@@ -13,7 +13,7 @@ const Login = () => {
   const urlState = query.get("state");
 
   const [state, setState] = React.useState(urlState || "login");
-  const [isLoading, setIsLoading] = React.useState(false); // State to control button loading/disabling
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
     name: "",
@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
 
     try {
       const { data } = await api.post(`/api/users/${state}`, formData);
@@ -31,10 +31,9 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       toast.success(data.message);
     } catch (error) {
-      // Use toast.error for explicit failure notification
       toast.error(error?.response?.data?.message || error.message);
     } finally {
-      setIsLoading(false); // Stop loading regardless of success or failure
+      setIsLoading(false);
     }
   };
 
@@ -44,29 +43,33 @@ const Login = () => {
   };
 
   return (
-    // Centering container for the form
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen bg-[#0B0F19] relative z-0">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0B0F19] to-[#0B0F19] -z-10"></div>
+
       <form
         onSubmit={handleSubmit}
-        className="sm:w-[350px] w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white"
+        className="sm:w-[400px] w-[90%] text-center border border-slate-800 rounded-2xl px-8 py-10 bg-slate-900/50 backdrop-blur-xl shadow-2xl"
       >
-        {/* Dynamic Title */}
-        <h1 className="text-gray-900 text-3xl mt-10 font-medium">
-          {state === "login" ? "Login" : "Sign up"}
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 mb-4">
+          <Lock className="text-blue-500" size={24} />
+        </div>
+
+        <h1 className="text-white text-3xl font-semibold tracking-tight">
+          {state === "login" ? "Welcome back" : "Create an account"}
         </h1>
-        <p className="text-gray-500 text-sm mt-2">
-          Please {state === "login" ? "login" : "sign up"} to Continue
+        <p className="text-slate-400 text-sm mt-2 mb-8">
+          {state === "login" ? "Enter your details to access your account" : "Sign up to start building your resume"}
         </p>
 
-        {/* Name Input Field: Only rendered in 'Sign up' mode */}
         {state !== "login" && (
-          <div className="flex items-center mt-6 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-            <User2Icon size={16} color="#6B7280" />
+          <div className="flex items-center mb-4 w-full bg-slate-800/50 border border-slate-700 h-12 rounded-lg overflow-hidden pl-4 pr-2 gap-3 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+            <User2Icon size={18} className="text-slate-400" />
             <input
               type="text"
               name="name"
-              placeholder="Name"
-              className="border-none outline-none ring-0"
+              placeholder="Full Name"
+              className="w-full bg-transparent border-none outline-none ring-0 text-white placeholder-slate-500"
               value={formData.name}
               onChange={handleChange}
               required
@@ -74,74 +77,64 @@ const Login = () => {
           </div>
         )}
 
-        {/* Email Input Field */}
-        <div className="flex items-center w-full mt-4 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-          <Mail size={13} color="#6B7280" />
+        <div className="flex items-center mb-4 w-full bg-slate-800/50 border border-slate-700 h-12 rounded-lg overflow-hidden pl-4 pr-2 gap-3 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+          <Mail size={18} className="text-slate-400" />
           <input
             type="email"
             name="email"
-            placeholder="Email id"
-            className="border-none outline-none ring-0"
+            placeholder="Email address"
+            className="w-full bg-transparent border-none outline-none ring-0 text-white placeholder-slate-500"
             value={formData.email}
             onChange={handleChange}
             required
           />
         </div>
 
-        {/* Password Input Field */}
-        <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-          <Lock size={13} color="#6B7280" />
+        <div className="flex items-center mb-2 w-full bg-slate-800/50 border border-slate-700 h-12 rounded-lg overflow-hidden pl-4 pr-2 gap-3 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+          <Lock size={18} className="text-slate-400" />
           <input
             type="password"
             name="password"
             placeholder="Password"
-            className="border-none outline-none ring-0"
+            className="w-full bg-transparent border-none outline-none ring-0 text-white placeholder-slate-500"
             value={formData.password}
             onChange={handleChange}
             required
           />
         </div>
 
-        {/* Forget Password Link/Button */}
-        <div className="mt-4 text-left text-green-500">
-          <button className="text-sm" type="reset">
-            Forget Password?
+        <div className="text-left mb-6 mt-2">
+          <button className="text-sm text-blue-400 hover:text-blue-300 transition-colors" type="button">
+            Forgot password?
           </button>
         </div>
 
-        {/* Primary Submit Button with Loading State */}
         <button
           type="submit"
-          disabled={isLoading} // Disable button while loading
-          className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:opacity-90 transition-opacity flex items-center justify-center"
+          disabled={isLoading}
+          className="w-full h-12 rounded-lg text-white font-medium bg-blue-600 hover:bg-blue-500 active:scale-[0.98] transition-all flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)] disabled:opacity-70 disabled:pointer-events-none"
         >
           {isLoading ? (
             <>
-              {/* Show spinner when loading */}
-              <LoaderCircleIcon className="animate-spin size-4 mr-2" />
-              Please Wait...
+              <LoaderCircleIcon className="animate-spin size-5 mr-2" />
+              Please wait...
             </>
           ) : state === "login" ? (
-            "Login"
+            "Sign In"
           ) : (
-            "Sign up"
+            "Sign Up"
           )}
         </button>
 
-        {/* State Toggle Link */}
-        <p
-          onClick={() =>
-            setState((prev) => (prev === "login" ? "register" : "login"))
-          }
-          className="text-gray-500 text-sm mt-3 mb-11 cursor-pointer"
-        >
-          {/* Dynamic question and link */}
-          {state === "login"
-            ? "Don't have an Account?"
-            : "Already have an Account?"}{" "}
-          <a href="#" className="text-green-500 hover:underline">
-            Click Here
-          </a>
+        <p className="text-slate-400 text-sm mt-8">
+          {state === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
+          <button
+            type="button"
+            onClick={() => setState((prev) => (prev === "login" ? "register" : "login"))}
+            className="text-blue-400 hover:text-blue-300 hover:underline font-medium transition-colors ml-1"
+          >
+            {state === "login" ? "Sign up" : "Sign in"}
+          </button>
         </p>
       </form>
     </div>

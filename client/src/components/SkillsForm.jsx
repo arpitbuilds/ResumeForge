@@ -33,10 +33,10 @@ const SkillsForm = ({ data, onChange }) => {
     <div className="space-y-4">
       {/* Section Header */}
       <div>
-        <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+        <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
           Skills
         </h3>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-400">
           Add your technical and soft skills
         </p>
       </div>
@@ -88,7 +88,7 @@ const SkillsForm = ({ data, onChange }) => {
         </div>
       ) : (
         // Empty State Placeholder
-        <div className="text-center py-6 text-gray-500">
+        <div className="text-center py-6 text-slate-400">
           <Sparkles className="w-10 h-10 mx-auto mb-2 text-gray-300" />
           <p>No Skills added yet.</p>
           <p className="text-sm">Add your technical and soft skills above.</p>

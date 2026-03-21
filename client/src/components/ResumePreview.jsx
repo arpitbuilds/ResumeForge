@@ -34,7 +34,7 @@ const ResumePreview = ({ data, template, accentColor, classes = "" }) => {
       </div>
 
       {/* --- Print Media Styles (Essential for PDF Export) --- */}
-      <style jsx>
+      <style>
         {`
           /* Set standard letter size (8.5in x 11in) and remove default margins */
           @page {

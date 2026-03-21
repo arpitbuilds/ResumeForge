@@ -33,7 +33,7 @@ const ColorPicker = ({ selectedColor, onChange }) => {
       {/* Dropdown Panel: Renders conditionally when isOpen is true */}
       {isOpen && (
         // Palette Grid Layout
-        <div className="grid grid-cols-4 w-60 gap-2 absolute top-full left-0 right-0 p-3 mt-2 z-10 bg-white rounded-md border border-gray-200 shadow-sm">
+        <div className="grid grid-cols-4 w-60 gap-2 absolute top-full left-0 right-0 p-3 mt-2 z-10 bg-transparent text-white border-slate-700 rounded-md border border-slate-700 shadow-sm">
           {colors.map((color) => (
             <div
               key={color.value}
@@ -59,7 +59,7 @@ const ColorPicker = ({ selectedColor, onChange }) => {
               )}
 
               {/* Color Name Label */}
-              <p className="text-xs text-center mt-1 text-gray-600">
+              <p className="text-xs text-center mt-1 text-slate-400">
                 {color.name}
               </p>
             </div>

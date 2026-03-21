@@ -104,11 +104,11 @@ const PersonalInfoForm = ({
     <div>
       {/* Section Header */}
 
-      <h3 className="text-lg font-semibold text-gray-900">
+      <h3 className="text-lg font-semibold text-white">
         Personal Information
       </h3>
 
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-slate-400">
         Get Started with the personal information
       </p>
 
@@ -145,7 +145,7 @@ const PersonalInfoForm = ({
           <div className="flex flex-col gap-1 pl-4 text-sm">
             <p>Remove Background</p>
 
-            <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+            <label className="relative inline-flex items-center cursor-pointer text-white gap-3">
               <input
                 type="checkbox"
                 className="sr-only peer"
@@ -168,7 +168,7 @@ const PersonalInfoForm = ({
 
         return (
           <div key={field.key} className="space-y-1 mt-5">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
+            <label className="flex items-center gap-2 text-sm font-medium text-slate-400">
               <Icon className="size-4" />
               {field.label}
               {field.required && <span className="text-red-500">*</span>}
@@ -184,7 +184,7 @@ const PersonalInfoForm = ({
               pattern={field.pattern}
               minLength={field.minLength}
               maxLength={field.maxLength}
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-sm"
+              className="mt-1 w-full px-3 py-2 border border-slate-700 rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-sm"
               placeholder={
                 field.placeholder || `Enter your ${field.label.toLowerCase()}`
               }

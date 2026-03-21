@@ -15,7 +15,8 @@ const Layout = () => {
   return (
     <div>
       {user ? (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#0B0F19] text-slate-200 relative z-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0B0F19] to-[#0B0F19] -z-10"></div>
           <Navbar />
           <Outlet />
         </div>

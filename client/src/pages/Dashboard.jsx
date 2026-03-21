@@ -20,26 +20,25 @@ const ModalWrapper = ({ children, onClose, onSubmit }) => (
   <form
     onSubmit={onSubmit}
     onClick={onClose}
-    className="fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center"
+    className="fixed inset-0 bg-[#0B0F19]/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
   >
     <div
       onClick={(e) => e.stopPropagation()}
-      className="relative bg-slate-50 border shadow-md rounded-lg w-full max-w-sm p-6"
+      className="relative bg-slate-900 border border-slate-700 shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-2xl w-full max-w-md p-6 sm:p-8"
     >
       {children}
-      <XIcon
-        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
-        onClick={onClose}
-      />
+      <button type="button" onClick={onClose} className="absolute top-5 right-5 p-1.5 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
+        <XIcon size={20} />
+      </button>
     </div>
   </form>
 );
 
 // --- Main Dashboard Component ---
 const Dashboard = () => {
-  const { token } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
 
-  const colors = ["#9333ea", "#d97706", "#dc2626", "#0284c7", "#16a34a"];
+  const colors = ["#818cf8", "#f472b6", "#34d399", "#38bdf8", "#fbbf24"];
 
   const [allResumes, setAllResumes] = useState([]);
   const [showCreateResume, setShowCreateResume] = useState(false);
@@ -47,8 +46,8 @@ const Dashboard = () => {
   const [title, setTitle] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
   const [editResumeId, setEditResumeId] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Used for file upload
-  const [isUpdatingTitle, setIsUpdatingTitle] = useState(false); // Used for title edit
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUpdatingTitle, setIsUpdatingTitle] = useState(false);
 
   const navigate = useNavigate();
 
@@ -171,91 +170,107 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <p className="text-2xl font-medium mb-6 bg-gradient-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent sm:hidden">
-          Welcome, Joe Doe
+      <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+        <p className="text-3xl font-semibold mb-8 text-white tracking-tight">
+          Welcome, {user?.name || "User"}
         </p>
 
         {/* Action Buttons */}
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-8">
           <button
             onClick={() => setShowCreateResume(true)}
-            className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-indigo-500 hover:shadow-lg transition-all duration-300 cursor-pointer"
+            className="w-full sm:max-w-44 h-52 flex flex-col items-center justify-center rounded-2xl gap-3 bg-slate-800/40 backdrop-blur text-slate-300 border border-dashed border-slate-600 group hover:border-indigo-400 hover:bg-slate-800 hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all duration-300 cursor-pointer"
           >
-            <PlusIcon className="size-11 transition-all duration-300 p-2.5 bg-gradient-to-br from-indigo-300 to-indigo-500 text-white rounded-full" />
-            <p className="text-sm group-hover:text-indigo-600 transition-all duration-300">
+            <div className="p-3 bg-indigo-500/10 rounded-full group-hover:bg-indigo-500/20 transition-colors">
+              <PlusIcon className="size-8 text-indigo-400 group-hover:text-indigo-300 group-hover:scale-110 transition-all duration-300" />
+            </div>
+            <p className="font-medium group-hover:text-indigo-300 transition-colors">
               Create Resume
             </p>
           </button>
 
           <button
             onClick={() => setShowUploadResume(true)}
-            className="w-full bg-white sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 text-slate-600 border border-dashed border-slate-300 group hover:border-purple-500 hover:shadow-lg transition-all duration-300 cursor-pointer"
+            className="w-full sm:max-w-44 h-52 flex flex-col items-center justify-center rounded-2xl gap-3 bg-slate-800/40 backdrop-blur text-slate-300 border border-dashed border-slate-600 group hover:border-purple-400 hover:bg-slate-800 hover:shadow-[0_0_20px_rgba(168,85,247,0.15)] transition-all duration-300 cursor-pointer"
           >
-            <UploadCloudIcon className="size-11 transition-all duration-300 p-2.5 bg-gradient-to-br from-purple-300 to-purple-500 text-white rounded-full" />
-            <p className="text-sm group-hover:text-purple-600 transition-all duration-300">
+            <div className="p-3 bg-purple-500/10 rounded-full group-hover:bg-purple-500/20 transition-colors">
+              <UploadCloudIcon className="size-8 text-purple-400 group-hover:text-purple-300 group-hover:-translate-y-1 transition-all duration-300" />
+            </div>
+            <p className="font-medium group-hover:text-purple-300 transition-colors">
               Upload Existing
             </p>
           </button>
         </div>
 
-        <hr className="border-slate-300 my-6 sm:w-[350px]" />
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-xl font-medium text-slate-200">My Resumes</h2>
+          <div className="h-px bg-slate-800 flex-1"></div>
+        </div>
 
         {/* Resumes Grid */}
-        <div className="grid grid-cols-2 sm:flex flex-wrap gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4">
           {/* ✅ FIX: Use Optional Chaining to prevent 'Cannot read properties of null (reading 'map')' */}
           {allResumes?.map((resume, index) => {
             const baseColor = colors[index % colors.length];
 
             return (
-              <button
+              <div
                 key={index}
                 onClick={() => navigate(`/app/builder/${resume._id}`)}
-                className="relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="relative w-full aspect-[3/4] flex flex-col items-center justify-center rounded-xl gap-3 border group hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm shadow-md"
                 style={{
-                  background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
+                  background: `linear-gradient(135deg, ${baseColor}15, ${baseColor}30)`,
                   borderColor: baseColor + "40",
                 }}
               >
-                <FilePenLineIcon
-                  className="size-7 group-hover:scale-105 transition-all"
-                  style={{ color: baseColor }}
-                />
+                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors pointer-events-none"></div>
+
+                <div 
+                  className="z-10 p-4 rounded-full bg-slate-900/50 group-hover:scale-110 transition-transform duration-300 backdrop-blur"
+                  style={{ boxShadow: `0 0 15px ${baseColor}30` }}
+                >
+                  <FilePenLineIcon
+                    className="size-8"
+                    style={{ color: baseColor }}
+                  />
+                </div>
 
                 <p
-                  className="text-sm group-hover:scale-105 transition-all px-2 text-center"
+                  className="z-10 text-sm font-medium group-hover:text-white transition-colors px-3 text-center line-clamp-2"
                   style={{ color: baseColor }}
                 >
                   {resume.title}
                 </p>
 
                 <p
-                  className="absolute bottom-1 text-[11px] text-slate-400 group-hover:text-slate-500 transition-all duration-300 px-2 text-center"
-                  style={{ color: baseColor + "90" }}
+                  className="z-10 absolute bottom-3 text-[11px] font-medium opacity-60 group-hover:opacity-100 transition-all duration-300 px-2 text-center text-slate-300"
                 >
-                  Updated on {new Date(resume.updatedAt).toLocaleDateString()}
+                  {new Date(resume.updatedAt).toLocaleDateString()}
                 </p>
 
                 <div
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute top-1 right-1 group-hover:flex items-center hidden"
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex flex-col gap-1 transition-opacity z-20"
                 >
-                  <TrashIcon
-                    onClick={() => {
-                      deleteResume(resume._id);
-                    }}
-                    className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors"
-                  />
-
-                  <PencilIcon
+                  <button
                     onClick={() => {
                       setEditResumeId(resume._id);
                       setTitle(resume.title);
                     }}
-                    className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors"
-                  />
+                    className="p-1.5 rounded-md bg-slate-800/80 hover:bg-blue-500 hover:text-white text-slate-300 backdrop-blur transition-all"
+                    title="Edit Title"
+                  >
+                    <PencilIcon className="size-4" />
+                  </button>
+                  <button
+                    onClick={() => deleteResume(resume._id)}
+                    className="p-1.5 rounded-md bg-slate-800/80 hover:bg-red-500 hover:text-white text-slate-300 backdrop-blur transition-all"
+                    title="Delete Resume"
+                  >
+                    <TrashIcon className="size-4" />
+                  </button>
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
@@ -269,16 +284,19 @@ const Dashboard = () => {
               resetForm();
             }}
           >
-            <h2 className="text-xl font-bold mb-4">Create a Resume</h2>
-            <input
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-              type="text"
-              placeholder="Enter Resume Title"
-              className="w-full px-4 py-2 mb-4 focus:border-green-600 ring-green-600"
-              required
-            />
-            <button className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
+            <h2 className="text-2xl font-semibold mb-6 text-white tracking-tight">Create new resume</h2>
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Resume Title</label>
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                placeholder="e.g. Software Engineer - Google"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-slate-500 outline-none transition-all"
+                required
+              />
+            </div>
+            <button className="w-full py-3 h-12 bg-blue-600 text-white rounded-lg hover:bg-blue-500 font-medium active:scale-[0.98] transition-all flex items-center justify-center">
               Create Resume
             </button>
           </ModalWrapper>
@@ -293,32 +311,43 @@ const Dashboard = () => {
               resetForm();
             }}
           >
-            <h2 className="text-xl font-bold mb-4">Upload Resume</h2>
-            <input
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-              type="text"
-              placeholder="Enter Resume Title"
-              className="w-full px-4 py-2 mb-4 focus:border-green-600 ring-green-600"
-              required
-            />
+            <h2 className="text-2xl font-semibold mb-6 text-white tracking-tight">Upload existing resume</h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Resume Title</label>
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                placeholder="e.g. Product Manager Data"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-slate-500 outline-none transition-all"
+                required
+              />
+            </div>
 
-            <div>
+            <div className="mb-6">
               <label
                 htmlFor="resume-input"
-                className="block text-sm text-slate-700"
+                className="block text-sm font-medium text-slate-400 mb-2"
               >
-                Select Resume File
-                <div className="flex flex-col items-center justify-center gap-2 border group text-slate-400 border-slate-400 border-dashed rounded-md p-4 py-10 my-4 hover:border-green-500 hover:text-green-700 cursor-pointer transition-colors">
-                  {resumeFile ? (
-                    <p className="text-green-700">{resumeFile.name}</p>
-                  ) : (
-                    <>
-                      <UploadCloudIcon className="size-14 stroke-1" />
-                      <p>Upload Resume</p>
-                    </>
-                  )}
-                </div>
+                Select PDF File
+              </label>
+              <label htmlFor="resume-input" className="flex flex-col items-center justify-center gap-3 border-2 text-slate-400 border-slate-700 bg-slate-800/30 border-dashed rounded-xl p-4 py-8 hover:border-purple-500 hover:bg-slate-800/50 cursor-pointer transition-all">
+                {resumeFile ? (
+                  <div className="flex flex-col items-center">
+                    <FilePenLineIcon className="size-10 mb-2 text-purple-400" />
+                    <p className="text-purple-300 font-medium text-center">{resumeFile.name}</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="p-3 bg-slate-800 rounded-full">
+                      <UploadCloudIcon className="size-8 text-slate-400" />
+                    </div>
+                    <div>
+                      <p className="text-white font-medium text-center">Click to upload</p>
+                      <p className="text-xs text-slate-500 mt-1">PDF format only (Max 5MB)</p>
+                    </div>
+                  </>
+                )}
               </label>
 
               <input
@@ -332,13 +361,17 @@ const Dashboard = () => {
             </div>
 
             <button
-              disabled={isLoading}
-              className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              disabled={isLoading || !resumeFile}
+              className="w-full py-3 h-12 bg-purple-600 text-white rounded-lg hover:bg-purple-500 font-medium active:scale-[0.98] transition-all flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
             >
-              {isLoading && (
-                <LoaderCircleIcon className="animate-spin size-4 text-white" />
+              {isLoading ? (
+                <>
+                  <LoaderCircleIcon className="animate-spin size-5 mr-2" />
+                  Uploading...
+                </>
+              ) : (
+                "Start Analyzing"
               )}
-              {isLoading ? "Uploading..." : "Upload Resume"}
             </button>
           </ModalWrapper>
         )}
@@ -352,23 +385,30 @@ const Dashboard = () => {
               setTitle("");
             }}
           >
-            <h2 className="text-xl font-bold mb-4">Edit Resume Title</h2>
-            <input
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
-              type="text"
-              placeholder="Enter Resume Title"
-              className="w-full px-4 py-2 mb-4 focus:border-green-600 ring-green-600"
-              required
-            />
+            <h2 className="text-2xl font-semibold mb-6 text-white tracking-tight">Edit title</h2>
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Resume Title</label>
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                placeholder="Enter new title"
+                className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-slate-500 outline-none transition-all"
+                required
+              />
+            </div>
             <button
               disabled={isUpdatingTitle}
-              className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 h-12 bg-blue-600 text-white rounded-lg hover:bg-blue-500 font-medium active:scale-[0.98] transition-all flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
             >
-              {isUpdatingTitle && (
-                <LoaderCircleIcon className="animate-spin size-4 text-white" />
+              {isUpdatingTitle ? (
+                <>
+                  <LoaderCircleIcon className="animate-spin size-5 mr-2" />
+                  Saving...
+                </>
+              ) : (
+                "Save Changes"
               )}
-              {isUpdatingTitle ? "Updating..." : "Update"}
             </button>
           </ModalWrapper>
         )}

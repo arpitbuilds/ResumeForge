@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ResumePreview from "../components/ResumePreview";
 import Loader from "../components/Loader";
 import { ArrowLeftIcon, FileBadge } from "lucide-react";
@@ -7,13 +7,15 @@ import api from "../configs/api";
 
 const Preview = () => {
   const { resumeId } = useParams();
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(true);
   const [resumeData, setResumeData] = useState(null);
 
   const loadResume = async () => {
     try {
-      const { data } = await api.get("/api/resumes/public/" + resumeId);
+      // Append the URL query parameters (like ?ref=Company) to the API request
+      const { data } = await api.get("/api/resumes/public/" + resumeId + location.search);
       setResumeData(data.resume);
     } catch (error) {
       console.log(error.message);

@@ -50,10 +50,10 @@ const EducationForm = ({ data, onChange }) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+          <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
             Education
           </h3>
-          <p className="text-sm text-gray-500">Add your Education Details</p>
+          <p className="text-sm text-slate-400">Add your Education Details</p>
         </div>
 
         <button
@@ -66,7 +66,7 @@ const EducationForm = ({ data, onChange }) => {
       </div>
 
       {data.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-slate-400">
           <GraduationCap className="w-12 h-12 mx-auto mb-3 text-gray-300" />
           <p>No education added yet.</p>
         </div>
@@ -75,10 +75,10 @@ const EducationForm = ({ data, onChange }) => {
           {data.map((education, index) => (
             <div
               key={index}
-              className="p-4 border border-gray-200 rounded-lg space-y-3"
+              className="p-4 border border-slate-700 rounded-lg space-y-3"
             >
               <div className="flex justify-between items-start">
-                <h4 className="font-medium text-gray-700">
+                <h4 className="font-medium text-slate-300">
                   Education #{index + 1}
                 </h4>
                 <button
@@ -97,7 +97,7 @@ const EducationForm = ({ data, onChange }) => {
                   }
                   type="text"
                   placeholder="Institution Name"
-                  className="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="px-3 py-2 text-sm rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
 
                 <input
@@ -107,7 +107,7 @@ const EducationForm = ({ data, onChange }) => {
                   }
                   type="text"
                   placeholder="Degree (e.g., Bachelor's)"
-                  className="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="px-3 py-2 text-sm rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
 
                 <input
@@ -117,7 +117,7 @@ const EducationForm = ({ data, onChange }) => {
                   }
                   type="text"
                   placeholder="Field of Study"
-                  className="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="px-3 py-2 text-sm rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
 
                 <input
@@ -126,12 +126,12 @@ const EducationForm = ({ data, onChange }) => {
                     updateEducation(index, "graduation_date", e.target.value)
                   }
                   type="month"
-                  className="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="px-3 py-2 text-sm rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs text-gray-500 ml-1">
+                <label className="text-xs text-slate-400 ml-1">
                   GPA / CGPA (0.00 - 10.00)
                 </label>
                 <input
@@ -146,7 +146,7 @@ const EducationForm = ({ data, onChange }) => {
                   // 'text' type combined with pattern works best for strict decimal control
                   type="text"
                   placeholder="e.g., 9.50"
-                  className="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
+                  className="px-3 py-2 text-sm rounded-lg border border-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 w-full"
                 />
               </div>
             </div>

@@ -90,11 +90,11 @@ const ExperienceForm = ({ data, onChange }) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+          <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
             Professional Experience
           </h3>
 
-          <p className="text-sm text-gray-500">Add your Job Experience</p>
+          <p className="text-sm text-slate-400">Add your Job Experience</p>
         </div>
 
         {/* Button to Add a new Experience Entry */}
@@ -110,7 +110,7 @@ const ExperienceForm = ({ data, onChange }) => {
       {/* Conditional Rendering: Show message if no data exists */}
       {data.length === 0 ? (
         // Corrected JSX for the empty state
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-slate-400">
           <Briefcase className="w-12 h-12 mx-auto mb-3 text-gray-300" />
           <p>No work experience added yet.</p>
           <p className="text-sm">Click "Add Experience" to get started.</p>
@@ -121,7 +121,7 @@ const ExperienceForm = ({ data, onChange }) => {
           {data.map((experience, index) => (
             <div
               key={index} // Key is used here for mapping stability.
-              className="p-4 border border-gray-200 rounded-lg space-y-3"
+              className="p-4 border border-slate-700 rounded-lg space-y-3"
             >
               <div className="flex justify-between items-start">
                 {/* Title and Remove Button */}
@@ -176,7 +176,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   }
                   type="month"
                   disabled={experience.is_current}
-                  className="px-3 py-2 text-sm rounded-lg disabled:bg-gray-100"
+                  className="px-3 py-2 text-sm rounded-lg disabled:bg-slate-800"
                 />
               </div>
 
@@ -191,7 +191,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   }}
                   className="rounded border-r-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-slate-300">
                   Currently working here
                 </span>
               </label>
@@ -199,7 +199,7 @@ const ExperienceForm = ({ data, onChange }) => {
               {/* Job Description Area */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-gray-700 ">
+                  <label className="text-sm font-medium text-slate-300 ">
                     Job Description
                   </label>
 

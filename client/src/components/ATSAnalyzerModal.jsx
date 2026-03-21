@@ -44,7 +44,7 @@ const ATSAnalyzerModal = ({ isOpen, onClose, resumeData }) => {
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-slate-900 text-slate-100 border-slate-700 rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
         <div className="px-6 py-4 flex justify-between items-center border-b border-gray-100 bg-slate-50">
           <h2 className="text-xl font-semibold text-slate-800">ATS Analyzer</h2>

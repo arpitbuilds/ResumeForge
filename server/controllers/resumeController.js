@@ -1,6 +1,8 @@
 import ImageKit from "../configs/imageKit.js";
 import Resume from "../models/Resume.js";
+import Notification from "../models/Notification.js";
 import fs from "fs";
+import { getIo } from "../socket.js";
 
 export const createResume = async (req, res) => {
   try {
@@ -63,6 +65,7 @@ export const getResumeById = async (req, res) => {
 export const getPublicResumeById = async (req, res) => {
   try {
     const { resumeId } = req.params;
+    const { ref } = req.query; // Extracted tracking parameter from URL
 
     const resume = await Resume.findOne({ public: true, _id: resumeId });
 
@@ -70,6 +73,28 @@ export const getPublicResumeById = async (req, res) => {
       return res
         .status(404)
         .json({ message: "Resume Not Found or Not Public." });
+    }
+
+    try {
+      const viewerName = ref ? decodeURIComponent(ref) : "Someone";
+
+      // 1. Save to Database for persistence
+      const newNotif = await Notification.create({
+        userId: resume.userId,
+        message: `${viewerName} just viewed your resume: ${resume.title}`,
+        resumeId: resume._id,
+      });
+
+      // 2. Emit real-time socket events
+      const io = getIo();
+      io.to(resume.userId.toString()).emit("resume_viewed", {
+        resumeTitle: resume.title,
+      });
+      // Also emit this specific event to trigger UI unread count updates
+      io.to(resume.userId.toString()).emit("new_notification", newNotif);
+
+    } catch (err) {
+      console.log("Socket emit or Notification save error:", err.message);
     }
 
     return res.status(200).json({ resume });

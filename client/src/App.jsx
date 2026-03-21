@@ -8,14 +8,15 @@ import Preview from "./pages/Preview";
 import Login from "./pages/Login";
 // Import essential routing components from React Router v6.
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "./configs/api";
 import { login, setLoading } from "./app/features/authSlice";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import NotFoundPage from "./pages/NotFoundPage";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const getUserData = async () => {
     const token = localStorage.getItem("token");
