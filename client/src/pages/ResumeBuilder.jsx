@@ -18,10 +18,12 @@ import {
   Sparkles,
   Target,
   User,
+  Award,
 } from "lucide-react";
 
 // Import all child form components for editing different resume sections.
 import PersonalInfoForm from "../components/PersonalInfoForm";
+import CertificationsForm from "../components/CertificationsForm";
 import ResumePreview from "../components/ResumePreview";
 import ATSAnalyzerModal from "../components/ATSAnalyzerModal";
 import JobMatcherModal from "../components/JobMatcherModal";
@@ -50,6 +52,7 @@ const ResumeBuilder = () => {
     education: [],
     projects: [],
     skills: [],
+    certifications: [],
     template: "classic",
     accent_color: "#3b82f6",
     public: false,
@@ -85,6 +88,7 @@ const ResumeBuilder = () => {
     { id: "education", name: "Education", icon: GraduationCap },
     { id: "projects", name: "Projects", icon: Folder },
     { id: "skills", name: "Skills", icon: Sparkles },
+    { id: "certifications", name: "Certifications", icon: Award },
   ];
 
   const activeSection = sections[activeSectionIndex];
@@ -311,6 +315,19 @@ const ResumeBuilder = () => {
                       setResumeData((prev) => ({
                         ...prev,
                         skills: data,
+                      }))
+                    }
+                  />
+                )}
+
+                {/* Certifications Form */}
+                {activeSection.id === "certifications" && (
+                  <CertificationsForm
+                    data={resumeData.certifications || []}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        certifications: data,
                       }))
                     }
                   />

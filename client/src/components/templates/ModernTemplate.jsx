@@ -5,6 +5,8 @@ import {
   Linkedin,
   Globe,
   ExternalLink,
+  Github,
+  Code
 } from "lucide-react";
 import React from "react";
 
@@ -38,14 +40,14 @@ const ModernTemplate = ({ data, accentColor }) => {
           {data.personal_info?.email && (
             <div className="flex items-center gap-2">
               <Mail className="size-4" />
-              <span>{data.personal_info.email}</span>
+              <a href={`mailto:${data.personal_info.email}`} className="hover:underline">{data.personal_info.email}</a>
             </div>
           )}
           {/* Phone */}
           {data.personal_info?.phone && (
             <div className="flex items-center gap-2">
               <Phone className="size-4" />
-              <span>{data.personal_info.phone}</span>
+              <a href={`tel:${data.personal_info.phone}`} className="hover:underline">{data.personal_info.phone}</a>
             </div>
           )}
           {/* Location */}
@@ -82,10 +84,38 @@ const ModernTemplate = ({ data, accentColor }) => {
             >
               <Globe className="size-4" />
               {/* Displays URL by removing 'https://' prefix if present */}
-              <span className="break-all text-xs">
+              <span className="break-all text-xs hover:underline">
                 {data.personal_info.website.split("https://")[1]
                   ? data.personal_info.website.split("https://")[1]
                   : data.personal_info.website}
+              </span>
+            </a>
+          )}
+          {/* GitHub */}
+          {data.personal_info?.github && (
+            <a
+              target="_blank"
+              href={data.personal_info.github.startsWith('http') ? data.personal_info.github : `https://${data.personal_info.github}`}
+              className="flex items-center gap-2"
+              rel="noreferrer"
+            >
+              <Github className="size-4" />
+              <span className="break-all text-xs hover:underline">
+                {data.personal_info.github.split("github.com/")[1] || data.personal_info.github}
+              </span>
+            </a>
+          )}
+          {/* LeetCode */}
+          {data.personal_info?.leetcode && (
+            <a
+              target="_blank"
+              href={data.personal_info.leetcode.startsWith('http') ? data.personal_info.leetcode : `https://${data.personal_info.leetcode}`}
+              className="flex items-center gap-2"
+              rel="noreferrer"
+            >
+              <Code className="size-4" />
+              <span className="break-all text-xs hover:underline">
+                {data.personal_info.leetcode.split("leetcode.com/")[1] || data.personal_info.leetcode}
               </span>
             </a>
           )}
@@ -239,6 +269,31 @@ const ModernTemplate = ({ data, accentColor }) => {
                   >
                     {skill}
                   </span>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Certifications */}
+          {data.certifications && data.certifications.length > 0 && (
+            <section className="mt-8">
+              <h2 className="text-2xl font-light mb-4 pb-2 border-b border-gray-200">
+                Certifications
+              </h2>
+
+              <div className="space-y-4">
+                {data.certifications.map((cert, index) => (
+                  <div key={index}>
+                    <h3 className="font-semibold text-gray-900">
+                      {cert.link ? (
+                        <a href={cert.link.startsWith("http") ? cert.link : `https://${cert.link}`} target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1">{cert.name} <ExternalLink className="size-3"/></a>
+                      ) : cert.name}
+                    </h3>
+                    <p style={{ color: accentColor }}>{cert.issuer}</p>
+                    <div className="text-sm text-gray-600">
+                      <span>{formatDate(cert.date)}</span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>

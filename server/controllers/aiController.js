@@ -113,7 +113,9 @@ export const uploadResume = async (req, res) => {
       "phone": "",
       "location": "",
       "linkedin": "",
-      "website": ""
+      "website": "",
+      "github": "",
+      "leetcode": ""
     },
     "experience": [
       {
@@ -139,6 +141,14 @@ export const uploadResume = async (req, res) => {
         "field": "",
         "graduation_date": "YYYY-MM",
         "gpa": ""
+      }
+    ],
+    "certifications": [
+      {
+        "name": "",
+        "issuer": "",
+        "date": "YYYY-MM",
+        "link": ""
       }
     ]
     }

@@ -44,6 +44,8 @@ const ResumeSchema = new mongoose.Schema(
       location: { type: String, default: "" },
       linkedin: { type: String, default: "" },
       website: { type: String, default: "" },
+      github: { type: String, default: "" },
+      leetcode: { type: String, default: "" },
     },
 
     experience: [
@@ -62,6 +64,15 @@ const ResumeSchema = new mongoose.Schema(
         name: { type: String, required: true },
         type: { type: String },
         description: { type: String },
+      },
+    ],
+
+    certifications: [
+      {
+        name: { type: String, required: true },
+        issuer: { type: String },
+        date: { type: String },
+        link: { type: String },
       },
     ],
 

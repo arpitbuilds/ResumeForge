@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Globe, Github, Code } from "lucide-react";
 import React from "react";
 
 const ClassicTemplate = ({ data, accentColor }) => {
@@ -31,14 +31,14 @@ const ClassicTemplate = ({ data, accentColor }) => {
           {data.personal_info?.email && (
             <div className="flex items-center gap-1">
               <Mail className="size-4" />
-              <span>{data.personal_info.email}</span>
+              <a href={`mailto:${data.personal_info.email}`} className="hover:text-blue-600 hover:underline">{data.personal_info.email}</a>
             </div>
           )}
           {/* Phone (Conditionally Rendered) */}
           {data.personal_info?.phone && (
             <div className="flex items-center gap-1">
               <Phone className="size-4" />
-              <span>{data.personal_info.phone}</span>
+              <a href={`tel:${data.personal_info.phone}`} className="hover:text-blue-600 hover:underline">{data.personal_info.phone}</a>
             </div>
           )}
           {/* Location (Conditionally Rendered) */}
@@ -52,15 +52,28 @@ const ClassicTemplate = ({ data, accentColor }) => {
           {data.personal_info?.linkedin && (
             <div className="flex items-center gap-1">
               <Linkedin className="size-4" />
-              {/* Uses break-all for long URLs to prevent overflow */}
-              <span className="break-all">{data.personal_info.linkedin}</span>
+              <a href={data.personal_info.linkedin.startsWith('http') ? data.personal_info.linkedin : `https://${data.personal_info.linkedin}`} target="_blank" rel="noopener noreferrer" className="break-all hover:text-blue-600 hover:underline">{data.personal_info.linkedin}</a>
             </div>
           )}
           {/* Website (Conditionally Rendered) */}
           {data.personal_info?.website && (
             <div className="flex items-center gap-1">
               <Globe className="size-4" />
-              <span className="break-all">{data.personal_info.website}</span>
+              <a href={data.personal_info.website.startsWith('http') ? data.personal_info.website : `https://${data.personal_info.website}`} target="_blank" rel="noopener noreferrer" className="break-all hover:text-blue-600 hover:underline">{data.personal_info.website}</a>
+            </div>
+          )}
+          {/* GitHub (Conditionally Rendered) */}
+          {data.personal_info?.github && (
+            <div className="flex items-center gap-1">
+              <Github className="size-4" />
+              <a href={data.personal_info.github.startsWith('http') ? data.personal_info.github : `https://${data.personal_info.github}`} target="_blank" rel="noopener noreferrer" className="break-all hover:text-blue-600 hover:underline">{data.personal_info.github.split("github.com/")[1] || data.personal_info.github}</a>
+            </div>
+          )}
+          {/* LeetCode (Conditionally Rendered) */}
+          {data.personal_info?.leetcode && (
+            <div className="flex items-center gap-1">
+              <Code className="size-4" />
+              <a href={data.personal_info.leetcode.startsWith('http') ? data.personal_info.leetcode : `https://${data.personal_info.leetcode}`} target="_blank" rel="noopener noreferrer" className="break-all hover:text-blue-600 hover:underline">{data.personal_info.leetcode.split("leetcode.com/")[1] || data.personal_info.leetcode}</a>
             </div>
           )}
         </div>
@@ -188,6 +201,36 @@ const ClassicTemplate = ({ data, accentColor }) => {
                 {/* Graduation Date */}
                 <div className="text-sm text-gray-600">
                   <p>{formatDate(edu.graduation_date)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Certifications (Conditionally Rendered if data exists) */}
+      {data.certifications && data.certifications.length > 0 && (
+        <section className="mb-6">
+          <h2
+            className="text-xl font-semibold mb-4"
+            style={{ color: accentColor }}
+          >
+            CERTIFICATIONS
+          </h2>
+
+          <div className="space-y-3">
+            {data.certifications.map((cert, index) => (
+              <div key={index} className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-semibold text-gray-900">
+                    {cert.link ? (
+                      <a href={cert.link.startsWith("http") ? cert.link : `https://${cert.link}`} target="_blank" rel="noreferrer" className="hover:underline">{cert.name}</a>
+                    ) : cert.name}
+                  </h3>
+                  <p className="text-gray-700">{cert.issuer}</p>
+                </div>
+                <div className="text-sm text-gray-600">
+                  <p>{formatDate(cert.date)}</p>
                 </div>
               </div>
             ))}

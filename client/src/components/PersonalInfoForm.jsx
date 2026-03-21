@@ -1,6 +1,8 @@
 import {
   BriefcaseBusiness,
   Globe,
+  Github,
+  Code,
   Linkedin,
   Mail,
   MapPin,
@@ -97,6 +99,20 @@ const PersonalInfoForm = ({
       icon: Globe,
       type: "url",
       placeholder: "https://yourwebsite.com",
+    },
+    {
+      key: "github",
+      label: "GitHub Profile",
+      icon: Github,
+      type: "url",
+      placeholder: "https://github.com/username",
+    },
+    {
+      key: "leetcode",
+      label: "LeetCode Profile",
+      icon: Code,
+      type: "url",
+      placeholder: "https://leetcode.com/u/username",
     },
   ];
 
