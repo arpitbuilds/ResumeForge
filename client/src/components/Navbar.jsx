@@ -72,12 +72,24 @@ const Navbar = () => {
     <div className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md border-b border-slate-800">
       {/* Navigation container: Ensures max width and centers content. */}
       <nav className="flex items-center justify-between max-w-7xl mx-auto px-4 py-3.5 text-slate-100 transition-all">
-        {/* Logo Link: Always redirects to the home page (/). */}
-        <Link to="/">
-          <span className="font-bold text-xl drop-shadow-sm">
-            Resume<span className="text-blue-500">Forge</span>
-          </span>
-        </Link>
+        {/* Logo and Nav Links */}
+        <div className="flex items-center gap-6">
+          <Link to="/">
+            <span className="font-bold text-xl drop-shadow-sm">
+              Resume<span className="text-blue-500">Forge</span>
+            </span>
+          </Link>
+          {user && (
+            <div className="flex items-center gap-4 text-xs font-medium text-slate-400 max-sm:hidden">
+              <Link to="/app" className="hover:text-white transition-colors">
+                Dashboard
+              </Link>
+              <Link to="/app/jobs" className="hover:text-white transition-colors">
+                Job Hunter
+              </Link>
+            </div>
+          )}
+        </div>
 
         {/* User Info and Action Buttons */}
         <div className="flex items-center gap-4 text-sm relative">

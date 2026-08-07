@@ -8,6 +8,7 @@ import userRouter from "./routes/userRoutes.js";
 import resumeRouter from "./routes/resumeRoutes.js";
 import aiRouter from "./routes/aiRoutes.js";
 import notificationRouter from "./routes/notificationRoutes.js";
+import jobRouter from "./routes/jobRoutes.js";
 import http from "http";
 import { initSocket } from "./socket.js";
 
@@ -26,7 +27,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send(`<div>
     <h1>DEFAULT ROUTE</h1>  
-    <p> Everything is running OK</p>
+    <p> Everything is running OK 👍🚀</p>
     </div>`);
 });
 
@@ -34,6 +35,7 @@ app.use("/api/users", userRouter);
 app.use("/api/resumes", resumeRouter);
 app.use("/api/ai", aiRouter);
 app.use("/api/notifications", notificationRouter);
+app.use("/api/jobs", jobRouter);
 
 server.listen(PORT, () => {
   console.log(`Server is running on Port ${PORT}`);

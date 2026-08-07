@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import Preview from "./pages/Preview";
 import Login from "./pages/Login";
+import JobHunter from "./pages/JobHunter";
 // Import essential routing components from React Router v6.
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="app" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="builder/:resumeId" element={<ResumeBuilder />} />
+          <Route path="jobs" element={<JobHunter />} />
         </Route>
 
         <Route path="view/:resumeId" element={<Preview />} />

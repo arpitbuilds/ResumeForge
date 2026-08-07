@@ -7,6 +7,7 @@ import {
   TrashIcon,
   UploadCloudIcon,
   XIcon,
+  BriefcaseIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../configs/api";
@@ -198,6 +199,18 @@ const Dashboard = () => {
             </div>
             <p className="font-medium group-hover:text-purple-300 transition-colors">
               Upload Existing
+            </p>
+          </button>
+
+          <button
+            onClick={() => navigate("/app/jobs")}
+            className="w-full sm:max-w-44 h-52 flex flex-col items-center justify-center rounded-2xl gap-3 bg-slate-800/40 backdrop-blur text-slate-300 border border-dashed border-slate-600 group hover:border-blue-400 hover:bg-slate-800 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all duration-300 cursor-pointer"
+          >
+            <div className="p-3 bg-blue-500/10 rounded-full group-hover:bg-blue-500/20 transition-colors">
+              <BriefcaseIcon className="size-8 text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-all duration-300" />
+            </div>
+            <p className="font-medium group-hover:text-blue-300 transition-colors">
+              Job Hunter & CRM
             </p>
           </button>
         </div>
