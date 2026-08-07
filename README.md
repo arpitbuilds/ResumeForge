@@ -1,26 +1,26 @@
-# ResumeForge AI 🚀
+# ResumeForge
 
-A modern, full-stack, AI-powered Resume Builder that dynamically matches your profile against Applicant Tracking Systems (ATS) and specific job descriptions using the **Google Gemini** language model.
+A full-stack resume builder that matches user profiles against Applicant Tracking Systems (ATS) and specific job descriptions using the Google Gemini API.
 
-## 🌟 Core Features
+## Core Features
 
-- **Smart ATS Analyzer**: Evaluates resumes in real-time, providing a 0-100 match score with tailored strengths and missing keyword suggestions.
-- **Job Description Matcher**: Compare your resume securely against pasted LinkedIn/Indeed job postings to discover exactly which required skills are missing.
-- **AI Content Generator**: Automatically enhances your Professional Summary and Experience bullets on the fly using professional, action-oriented verbs via Google Gemini.
-- **AI PDF Parser (Advanced Schema)**: Upload existing PDF resumes, and the AI will extract dense, unstructured data (including Experience, Education, Technical Skills, Projects, Certifications, GitHub, and LeetCode) directly into structured, editable UI Forms.
-- **Live View WebSockets & Tracking**: Generate company-specific public tracking links (e.g. `?ref=Google`). When an employer opens your resume, you instantly receive a real-time push notification via `Socket.io`.
-- **Persistent Database Notifications**: Offline? No problem. The backend stores view history in an isolated Notification MongoDB collection, accessible via a dynamic Bell icon dropdown in your Navbar.
-- **Premium Dark Theme & Multiple Templates**: A gorgeous, minimalist dark theme built entirely with Tailwind CSS. Includes 4 distinct render templates (Classic, Modern, Minimal, MinimalImage) ensuring the editor remains sleek while natively exporting a clean, white, ATS-friendly PDF.
-- **Secure Authentication & Storage**: Complete registration and login system with bcrypt handling deeply nested JSON document structures, paired with ImageKit for rapid profile photo hosting.
+- **ATS Analyzer**: Evaluates resumes to provide a match score (0-100), highlighting existing strengths and suggesting missing keywords.
+- **Job Description Matcher**: Compares the current resume against pasted job postings to identify missing required skills.
+- **Content Generator**: Uses Google Gemini to suggest improvements and action verbs for the Professional Summary and Experience bullet points.
+- **PDF Parser**: Extracts data from uploaded PDF resumes (including Experience, Education, Technical Skills, Projects, and Certifications) and populates the application's forms.
+- **View Tracking & Notifications**: Allows users to generate company-specific tracking links (e.g., `?ref=Google`). When the link is opened, the user receives a real-time push notification via `Socket.io`.
+- **Notification History**: Stores resume view history in a MongoDB collection, accessible from the navigation bar for users who were offline during the view.
+- **Templates & Export**: Built with Tailwind CSS. Includes four export templates (Classic, Modern, Minimal, MinimalImage) that generate standard, ATS-friendly PDFs.
+- **Authentication & Storage**: User registration and login system using bcrypt and JWT, with ImageKit integration for profile photo hosting.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React (Vite), Tailwind CSS, Redux Toolkit, Socket.io-client, Lucide React
 - **Backend**: Node.js, Express.js, MongoDB (Mongoose), Socket.io, JSON Web Tokens (JWT)
 - **AI Integration**: Google Gemini (`@google/genai`)
 - **Cloud Storage**: ImageKit
 
-## 🚀 Running Locally
+## Running Locally
 
 ### Prerequisites
 - Node.js (v18+ recommended)
@@ -30,12 +30,12 @@ A modern, full-stack, AI-powered Resume Builder that dynamically matches your pr
 
 ### 1. Backend Setup
 1. Open the `server` directory in your terminal.
-2. Rename `.env-example` to `.env` and fill in your keys.
+2. Rename `.env-example` to `.env` and fill in your keys and environment variables.
 3. Install dependencies: `npm install`
 4. Start the development server: `npm run server` (runs on `http://localhost:4000` via nodemon).
 
 ### 2. Frontend Setup
 1. Open the `client` directory in your terminal.
-2. Ensure your `VITE_BASE_URL` in `client/.env` points to your backend.
+2. Ensure your `VITE_BASE_URL` in `client/.env` points to your local backend.
 3. Install dependencies: `npm install`
 4. Start the frontend server: `npm run dev`

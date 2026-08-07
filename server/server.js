@@ -19,11 +19,7 @@ const server = http.createServer(app);
 // Initialize Socket.io
 initSocket(server);
 
-try {
-  await connectDB();
-} catch (error) {
-  console.error("Server failed to start due to database connection error.");
-}
+connectDB();
 
 app.use(express.json());
 app.use(cors());

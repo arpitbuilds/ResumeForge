@@ -8,7 +8,7 @@ const ai = {
   chat: {
     completions: {
       create: async (params) => {
-        const modelName = params.model || process.env.OPENAI_MODEL || "gemini-1.5-flash";
+        const modelName = params.model || process.env.OPENAI_MODEL || "gemini-2.5-flash";
         const model = genAI.getGenerativeModel({ model: modelName });
         
         let promptLines = [];
