@@ -16,11 +16,19 @@ const connectDB = async () => {
       process.exit(1);
     }
 
-    if (mongodbURI.endsWith("/")) {
-      mongodbURI = mongodbURI.slice(0, -1);
+    let connectionString;
+    const queryIndex = mongodbURI.indexOf("?");
+    if (queryIndex !== -1) {
+      const base = mongodbURI.slice(0, queryIndex);
+      const query = mongodbURI.slice(queryIndex);
+      const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+      connectionString = `${cleanBase}/${projectName}${query}`;
+    } else {
+      const cleanURI = mongodbURI.endsWith("/") ? mongodbURI.slice(0, -1) : mongodbURI;
+      connectionString = `${cleanURI}/${projectName}`;
     }
 
-    await mongoose.connect(`${mongodbURI}/${projectName}`);
+    await mongoose.connect(connectionString);
   } catch (error) {
     console.error(
       "Connection Failed!, Error while connecting to MongoDB:",
